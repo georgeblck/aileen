@@ -13,7 +13,7 @@ GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 videos = sorted(glob.glob("videos/*.mp4"))
 
-syscmd("export DISPLAY=:0", waiting=True)
+#syscmd("export DISPLAY=:0", waiting=True)
 
 while True:
     # play first video and measure time
