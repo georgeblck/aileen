@@ -25,10 +25,12 @@ while True:
         time.sleep(0.5)
 
     sleepTime = (time.time() - t) % (4 * 60)
+    print(sleepTime)
     if sleepTime <= 21:
+        print("went into sleeptime if")
         time.sleep(21 - sleepTime)
 
-    syscmd("killall omxplayer")
+    syscmd("killall omxplayer.bin", waiting=True)
     t = time.time()
     syscmd("omxplayer -b --loop --no-osd " + videos[1])
     print("second video is playing")
@@ -36,10 +38,10 @@ while True:
         wasevent = GPIO.event_detected(pin)
         time.sleep(1)
 
-    syscmd("killall omxplayer")
+    syscmd("killall omxplayer.bin")
     if wasevent == True:
         syscmd("omxplayer -b --no-osd " +
                videos[2], waiting=True)
-        syscmd("killall omxplayer")
+        syscmd("killall omxplayer.bin")
 
 GPIO.cleanup()
