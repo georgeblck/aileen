@@ -20,7 +20,7 @@ while True:
     t = time.time()
     GPIO.add_event_detect(pin, GPIO.BOTH, bouncetime=2000)
     syscmd("omxplayer -b --loop --no-osd " + videos[0])
-    prin("First video is playing")
+    print("First video is playing")
     while GPIO.event_detected(pin) == False:
         time.sleep(0.5)
 
