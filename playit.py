@@ -30,12 +30,13 @@ while True:
     syscmd("killall vlc")
     t = time.time()
     syscmd("vlc --no-video-title-show --fullscreen --repeat " + videos[1])
-    while (GPIO.event_detected(pin) == False) & (time.time() - t) < (20 * 3):
+    while (GPIO.event_detected(pin) == False) | ((time.time() - t) < (20 * 3)):
+        wasevent = GPIO.event_detected(pin)
         time.sleep(1)
 
     syscmd("killall vlc")
-    syscmd("vlc --no-video-title-show --fullscreen " + videos[2], waiting=True)
-    time.sleep(5)
-    syscmd("killall vlc")
+    if wasevent == True:
+        syscmd("vlc --no-video-title-show --fullscreen " +
+               videos[2], waiting=True)
 
 GPIO.cleanup()
