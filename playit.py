@@ -17,19 +17,21 @@ while True:
     # play first video and measure time
     t = time.time()
     GPIO.add_event_detect(pin, GPIO.BOTH)
-    syscmd("vlc --no-video-title-show --fullscreen --repeat" + videos[0])
+    syscmd("vlc --no-video-title-show --fullscreen --repeat " + videos[0])
     while GPIO.event_detected(pin) == False:
         time.sleep(1)
 
     sleepTime = (time.time - t) % (4 * 60)
     if sleepTime <= 21:
-        time.sleep(sleepTime - 1)
+        time.sleep(21 - sleepTime)
 
+    syscmd("killall vlc")
     t = time.time()
     GPIO.add_event_detect(pin, GPIO.BOTH)
-    syscmd("vlc --no-video-title-show --fullscreen --repeat" + videos[1])
+    syscmd("vlc --no-video-title-show --fullscreen --repeat " + videos[1])
     while (GPIO.event_detected(pin) == False) & (time.time() - t) < (20 * 3):
         time.sleep(1)
 
-    syscmd("vlc --no-video-title-show --fullscreen --repeat" + videos[2])
+    syscmd("killall vlc")
+    syscmd("vlc --no-video-title-show --fullscreen " + videos[2], waiting = True)
     time.sleep(5)
