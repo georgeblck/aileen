@@ -14,11 +14,11 @@ GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 videos = sorted(glob.glob("videos/*.mp4"))
 
 #syscmd("export DISPLAY=:0", waiting=True)
+GPIO.add_event_detect(pin, GPIO.BOTH, bouncetime=2000)
 
 while True:
     # play first video and measure time
     t = time.time()
-    GPIO.add_event_detect(pin, GPIO.BOTH, bouncetime=2000)
     syscmd("omxplayer -b --loop --no-osd " + videos[0])
     print("First video is playing")
     while GPIO.event_detected(pin) == False:
@@ -41,6 +41,7 @@ while True:
 
     syscmd("killall omxplayer.bin")
     if wasevent == True:
+        print("Pressed the button quickly enough. Playing the third video")
         syscmd("omxplayer -b --no-osd " +
                videos[2], waiting=True)
         syscmd("killall omxplayer.bin")
