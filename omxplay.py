@@ -25,9 +25,9 @@ while True:
     while GPIO.event_detected(pin) == False:
         time.sleep(0.5)
 
+    print("First Button pushed")
     # If the video is still playing-->idle some more
     sleepTime = (time.time() - t) % (4 * 60)
-    print(sleepTime)
     if sleepTime <= 21:
         time.sleep(21 - sleepTime)
     # kill the first video
@@ -44,7 +44,6 @@ while True:
 
     # If the video is still playing, idle some more
     sleepTime = (time.time() - t) % (20)
-    print(sleepTime)
     if sleepTime <= 20:
         print("went into second sleeptime if")
         time.sleep(20 - sleepTime)
@@ -52,7 +51,7 @@ while True:
     # If the button was pushed play the last video and kill everything
     syscmd("killall omxplayer.bin")
     if wasevent == True:
-        print("Pressed the button quickly enough. Playing the third video")
+        print("Second button pushed")
         syscmd("omxplayer -b --no-osd -o local " +
                videos[2], waiting=True)
         syscmd("killall omxplayer.bin")
