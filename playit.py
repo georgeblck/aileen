@@ -23,7 +23,7 @@ while True:
     while GPIO.event_detected(pin) == False:
         time.sleep(1)
 
-    sleepTime = (time.time - t) % (4 * 60)
+    sleepTime = (time.time() - t) % (4 * 60)
     if sleepTime <= 21:
         time.sleep(21 - sleepTime)
 
