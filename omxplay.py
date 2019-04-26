@@ -34,9 +34,10 @@ while True:
     t = time.time()
     syscmd("omxplayer -b --loop --no-osd " + videos[1])
     print("second video is playing")
-    while (GPIO.event_detected(pin) == False) | ((time.time() - t) < (20 * 3)):
+
+    while (GPIO.event_detected(pin) == False) | ((time.time() - t) > (20 * 3)):
         wasevent = GPIO.event_detected(pin)
-        time.sleep(1)
+        time.sleep(0.5)
 
     syscmd("killall omxplayer.bin")
     if wasevent == True:
