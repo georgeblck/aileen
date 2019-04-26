@@ -11,7 +11,9 @@ pin = 23
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-videos = glob.glob("videos/*.mp4")
+videos = sorted(glob.glob("videos/*.mp4"))
+
+syscmd("export DISPLAY=:0", waiting=True)
 
 while True:
     # play first video and measure time
@@ -33,5 +35,8 @@ while True:
         time.sleep(1)
 
     syscmd("killall vlc")
-    syscmd("vlc --no-video-title-show --fullscreen " + videos[2], waiting = True)
+    syscmd("vlc --no-video-title-show --fullscreen " + videos[2], waiting=True)
     time.sleep(5)
+    syscmd("killall vlc")
+
+GPIO.cleanup()
