@@ -20,7 +20,7 @@ GPIO.add_event_detect(pin, GPIO.BOTH, bouncetime=2000)
 while True:
     # play first video in loop and measure time
     t = time.time()
-    syscmd("omxplayer -b --loop --no-osd -o local --vol 0 " + videos[0])
+    syscmd("omxplayer -b --loop --no-osd -o local --vol -1 --amp 30000 " + videos[0])
     # Idle till event is detected
     while GPIO.event_detected(pin) == False:
         time.sleep(0.5)
@@ -35,7 +35,7 @@ while True:
 
     # play second video in loop and measure time
     t = time.time()
-    syscmd("omxplayer -b --loop --no-osd -o local --vol 0 " + videos[1])
+    syscmd("omxplayer -b --loop --no-osd -o local --vol -1 --amp 30000 " + videos[1])
     # Set event detector hard coded
     wasevent = False
     while (wasevent == False) and ((time.time() - t) < (20 * 3)):
@@ -52,7 +52,7 @@ while True:
     syscmd("killall omxplayer.bin")
     if wasevent == True:
         print("Second button pushed")
-        syscmd("omxplayer -b --no-osd -o local --vol 0 " +
+        syscmd("omxplayer -b --no-osd -o local --vol -1 --amp 30000 " +
                videos[2], waiting=True)
         syscmd("killall omxplayer.bin")
 
